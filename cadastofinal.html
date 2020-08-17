@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <style type="text/css">
+    *{
+    font-weight: bolder;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+a:link{
+    text-decoration: none;
+}
+
+input{
+    border-radius: 12px;
+    border: 2px solid black;
+}
+
+text{
+    border: 3px solid black;
+    border-radius: 12px;
+}
+
+textarea{
+    border: 3px solid black;
+    border-radius: 12px;
+}
+
+select{
+    border: 3px solid black;
+    border-radius: 12px;
+}
+
+#site:after {
+    content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url(https://portogente.com.br/images/portopedia/2018/Outubro/almoxarif-figa.jpg); 
+    width: 100%;
+    height: 100%;
+    opacity : 0.7;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cabecalho{
+    display: flex;
+    height: 9vh;
+    margin-left: -16px;
+    margin-right: -8px;
+    margin-top: -16px;
+    padding-bottom: 0px;
+    background-color: purple;
+    border: 3px solid black;
+}
+
+#logo{
+    padding: 22.5px;
+    margin-left: -50px;
+    width: 5%;
+}
+
+#cadastro{
+    width: 90%;
+    margin-right: 10px;
+    padding: 30px;
+    padding-bottom: 50px;
+    font-size: 20px;
+}
+
+#consulta{
+    padding: 30px;
+    font-size: 20px;
+    color: black;
+    margin-right: 0px;
+}
+
+.infos{
+    margin-top: 200px;
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+.corpo{
+    font-size: 25px;
+    background-color: purple;
+    margin-left: 600px;
+    margin-right: 600px;
+    border-radius: 12px;
+    border: 5px solid black;
+}
+
+#botaosalvar{
+    width: 200px;
+    background-color: bisque;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+#botaosalvar:hover{
+    width: 250px;
+    background-color: bisque;
+    border-radius: 12px;
+}
+
+#botaosalvar:active{
+    width: 250px;
+    background-color: bisque;
+    border-radius: 12px;
+    margin-top: -2px;
+    margin-bottom: 2px;
+    transition-duration: 0.0s;
+}
+
+#name{
+    border: 2px solid black;
+}
+
+#botaosalvar{
+    cursor: pointer;
+}
+    </style>
+</head>
+<body id="site" class="site">
+    <header class="cabecalho">
+        <div id="logo" align="end"><img width="50px" src="https://image.flaticon.com/icons/svg/3061/3061341.svg" alt="empresa"></div>
+        <div id ="cadastro" align="end"><a href="Cadastro.html"><font color="black">Cadastro</font></a></div>
+        <div id ="consulta" align="end"><a href="Consulta.html"><font color="black">Consulta</font></a></div>
+    </header>
+    <main class="infos" align="center">Informações do Produto</main>
+    <main class="corpo" align="center">
+        <br>
+        <form>
+        <div><label for="name">Nome do Produto</label></div>
+        <input type="text" id="name">
+        <br><br>
+
+        <div class="nms"><label for="ns">Número de Série</label></div>
+        <input type="text" id="ns" oninput="apenasNumeros()">
+
+        <div id="type"><label for="equip">Tipo do Produto</label></div>
+        <select name="tiposdeequip" id="equip">
+            <optgroup label="Selecione o Tipo do Produto">
+            <option value="Tipo1">Peça de Reposição(MROs)</option>
+            <option value="Tipo2">Equipamento de Segurança(EPIs)</option>
+            <option value="Tipo3">Equipamento/Maquinário</option>
+            </optgroup>
+    </select>
+        <br><br>
+
+        <div id="CP"><label for="carac">Caracteristicas do Produto</label></div>
+        <textarea name="caracteristicas" id="carac" cols="80" rows="10"></textarea>
+        <br>
+
+        <div>
+            <input type="submit" label="Salvar" id="botaosalvar" value="Salvar" onclick="salvar()">
+        </div>
+        <br>
+    </form>
+
+    <!-- <p id="showData"></p>  -->
+    </main>
+
+    <script>
+          function apenasNumeros() {
+              
+          var serie = document.getElementById("ns")
+             if(serie.value.length == 3){
+                 serie.value += "."
+             }
+       }
+    </script>
+          
+    <script>
+         
+             var produtos = JSON.parse(localStorage.getItem("produtos"));
+
+             if(produtos == null){
+                   produtos = [];
+             }
+
+             function salvar(){
+                     produtos.push({
+                     'ns': document.getElementById('ns').value,
+                     'name' : document.getElementById('name').value,
+                     'equip' : document.getElementById('equip').value,
+                     'carac' : document.getElementById('carac').value
+                 });
+
+                 const json_produtos = JSON.stringify(produtos);
+
+                 localStorage.setItem("produtos", json_produtos);
+                 }
+    
+    </script>
+
+</body>
+</html>

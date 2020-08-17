@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta</title>
+    <style type="text/css">
+        * {
+            font-weight: bolder;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+
+        input {
+            border-radius: 12px;
+        }
+
+        text {
+            border: 3px solid black;
+            border-radius: 12px;
+        }
+
+        textarea {
+            border: 3px solid black;
+            border-radius: 12px;
+        }
+
+        select {
+            border: 3px solid black;
+            border-radius: 12px;
+        }
+
+        .cabecalho {
+            display: flex;
+            height: 9vh;
+            margin-left: -16px;
+            margin-right: -8px;
+            margin-top: -16px;
+            padding-bottom: 0px;
+            background-color: purple;
+            border: 3px solid black;
+        }
+
+        #logo {
+            padding: 18px;
+            padding-left: -15px;
+            margin-left: -50px;
+            width: 5%;
+        }
+
+        #cadastro {
+            width: 90%;
+            margin-right: 10px;
+            padding: 30px;
+            padding-bottom: 50px;
+            font-size: 20px;
+        }
+
+        #consulta {
+            padding: 30px;
+            font-size: 20px;
+            color: black;
+            margin-right: 0px;
+        }
+
+        .corpo {
+            display: flex;
+            height: 5vh;
+            margin-left: -16px;
+            margin-right: -8px;
+            margin-top: -16px;
+            padding-bottom: 0px;
+            background-color: rgb(255, 116, 255);
+            border: 3px solid black;
+        }
+
+        #lista {
+            padding: 15px;
+            margin-left: 0px;
+            width: 80%;
+            font-size: 20px;
+        }
+
+        #imglupa {
+            width: 5%;
+            padding: 0px;
+            font-size: 0px;
+            color: black;
+            margin-right: 0px;
+            cursor: pointer;
+        }
+
+        input[type=submit] {
+            background: url(https://image.flaticon.com/icons/svg/622/622669.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 50px;
+            border: 0;
+            cursor: pointer;
+        }
+
+        #pesquisa {
+            width: 15%;
+            margin-right: 0px;
+            padding: 0px;
+            padding-bottom: 0px;
+            font-size: 20px;
+        }
+
+        img {
+            cursor: pointer;
+        }
+
+        .lista {
+            width: 100%;
+            display: flex;
+            height: 85.4vh;
+            margin-left: 0px;
+            margin-right: -8px;
+            margin-top: 10px;
+            padding-bottom: 0px;
+            background-color: rgb(255, 185, 255);
+            overflow: auto;
+        }
+
+        .tabua {
+            border: 3px solid black;
+            width: 100%;
+            height: 86vh;
+        }
+
+        #name {
+            padding: 0px;
+            margin-left: 0px;
+            margin-right: 10px;
+            width: 20%;
+            font-size: 20px;
+            background-color: deeppink;
+            border-bottom: 3px solid black;
+        }
+
+        #ns {
+            font-size: 20px;
+            background-color: deeppink;
+            border-bottom: 3px solid black;
+            padding: 0px;
+            margin-left: 0px;
+            margin-right: 10px;
+        }
+
+        #type {
+            width: 15%;
+            padding: 0px;
+            font-size: 20px;
+            color: black;
+            margin-right: 0px;
+            background-color: deeppink;
+            margin-right: 10px;
+            border-bottom: 3px solid black;
+        }
+
+        #carac {
+            width: 63.5%;
+            margin-right: 0px;
+            padding: 0px;
+            padding-bottom: 0px;
+            font-size: 20px;
+            background-color: deeppink;
+            border-bottom: 3px solid black;
+        }
+
+        #tabula {
+            background-color: rgb(175, 188, 214);
+        }
+
+        #tabula tr:hover {
+            background-color: rgb(148, 170, 214);
+        }
+
+        #container2 {
+            background-color: rgb(255, 255, 255);
+        }
+
+        #tabula td:hover {
+            background-color: rgb(255, 228, 228);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div id="logo" align="end"><img width="50px" src="https://image.flaticon.com/icons/svg/3061/3061341.svg"
+                alt="empresa"></div>
+        <div id="cadastro" align="end"><a href="Cadastro.html">
+                <font color="black">Cadastro</font>
+            </a></div>
+        <div id="consulta" align="end"><a href="Consulta.html">
+                <font color="black">Consulta</font>
+            </a></div>
+    </header>
+
+    <main class="corpo">
+        <div id="lista">Lista de Itens</div>
+        <input id="pesquisa" oninput="Pesquisar(this.value)" placeholder="Pesquise na Lista">
+        <img src="https://image.flaticon.com/icons/svg/622/622669.svg" alt="">
+
+    </main>
+    <main class="lista">
+
+
+
+        <table class="tabua" id="tabula">
+            <colgroup class="columns"></colgroup>
+            <tr>
+                <th id="name">Nome do Produto</th>
+                <th id="ns">Número de Série</th>
+                <th id="type">Tipo do Produto</th>
+                <th id="carac">Características do Produto</th>
+            </tr>
+
+        </table>
+
+    </main>
+
+    <script>
+        var produtos = JSON.parse(localStorage.getItem('produtos'))
+
+        if (produtos == null) {
+            produtos = []
+        }
+
+        var tabela = document.getElementById('tabula')
+
+        for (i = 0; i < produtos.length; i++) {
+            var produto = produtos[i]
+            var name = produto['name']
+            var ns = produto['ns']
+            var equip = produto['equip']
+            var carac = produto['carac']
+
+            var th = tabula.insertRow(1)
+            var td = [th.insertCell(0), th.insertCell(1), th.insertCell(2), th.insertCell(3)]
+            td[0].innerHTML = name
+            td[1].innerHTML = ns
+            td[2].innerHTML = equip
+            td[3].innerHTML = carac
+        }
+    </script>
+</body>
+
+</html>
